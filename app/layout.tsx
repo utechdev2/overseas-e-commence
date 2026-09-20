@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./overrides.css";
 import { SiteHeader } from "@/components/site-header";
 import { CartProvider } from "@/components/cart-provider";
 
