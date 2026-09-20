@@ -1,89 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronLeft, ChevronRight, Instagram } from "lucide-react";
-import { categories, products } from "@/lib/store";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { categories, getProducts } from "@/lib/store";
 
 const heroImage = "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1800&q=85";
 const storyImage = "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1400&q=85";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getProducts();
   return (
     <main>
-      <section className="hero">
-        <div className="hero-copy">
-          <p className="eyebrow">STREETWEAR &nbsp;/&nbsp; CULTURE &nbsp;/&nbsp; COMMUNITY</p>
-          <h1>ABROKYIRE<br />ABA GHANA</h1>
-          <p className="hero-text">
-            OVERSEAS is a Ghanaian streetwear brand blending global fashion culture with African identity.
-            We are more than clothing — we are a movement.
-          </p>
-          <Link className="button button-light" href="/shop">SHOP NOW <ArrowRight size={16} /></Link>
-        </div>
-        <div className="hero-image">
-          <Image src={heroImage} alt="OVERSEAS streetwear campaign" fill priority sizes="(max-width: 900px) 100vw, 65vw" />
-          <div className="hero-note">DREAMS<br />DON&apos;T HAVE<br />A ZIP CODE</div>
-          <div className="hero-controls"><span>01 — 03</span><ChevronLeft size={18}/><ChevronRight size={18}/></div>
-        </div>
+      <section className="hero"><div className="hero-copy"><p className="eyebrow">STREETWEAR &nbsp;/&nbsp; CULTURE &nbsp;/&nbsp; COMMUNITY</p><h1>ABROKYIRE<br />ABA GHANA</h1><p className="hero-text">OVERSEAS is a Ghanaian streetwear brand blending global fashion culture with African identity. We are more than clothing — we are a movement.</p><Link className="button button-light" href="/shop">SHOP NOW <ArrowRight size={16} /></Link></div>
+        <div className="hero-image"><Image src={heroImage} alt="OVERSEAS streetwear campaign" fill priority sizes="(max-width: 900px) 100vw, 65vw" /><div className="hero-note">DREAMS<br />DON&apos;T HAVE<br />A ZIP CODE</div><div className="hero-controls"><span>01 — 03</span><ChevronLeft size={18}/><ChevronRight size={18}/></div></div>
       </section>
-
-      <section className="category-grid">
-        {categories.map((category) => (
-          <Link href={category.href} className="category-card" key={category.name}>
-            <Image src={category.image} alt={category.name} fill sizes="(max-width: 700px) 50vw, 20vw" />
-            <div className="category-overlay"><strong>{category.name}</strong><span>VIEW COLLECTION <ArrowRight size={13}/></span></div>
-          </Link>
-        ))}
-      </section>
-
-      <section className="story-section">
-        <div className="story-image"><Image src={storyImage} alt="The Foreign Boys Clan community" fill sizes="50vw" /></div>
-        <div className="story-copy">
-          <p className="eyebrow">OUR STORY</p>
-          <h2>MORE THAN A BRAND.<br />IT&apos;S A MOVEMENT.</h2>
-          <p>OVERSEAS was born from a vision — to create a space where Ghanaian identity meets global culture. We represent the dreamers, the hustlers, the creatives, and the real ones.</p>
-          <p className="muted">The Foreign Boys Clan isn&apos;t just a name, it&apos;s a family. A community of young Black people building a better tomorrow, together.</p>
-          <Link className="button button-outline" href="/our-story">LEARN MORE <ArrowRight size={16}/></Link>
-        </div>
-        <div className="story-values">
-          <div><span>◎</span><div><b>OUR VISION</b><small>Global influence.<br/>Ghanaian identity.<br/>Lasting impact.</small></div></div>
-          <div><span>◉</span><div><b>OUR MISSION</b><small>To create premium streetwear that tells our story and connects our people.</small></div></div>
-          <div><span>✦</span><div><b>OUR COMMUNITY</b><small>The Foreign Boys Clan.<br/>One People. One Vision.</small></div></div>
-        </div>
-      </section>
-
-      <section className="featured">
-        <div className="featured-intro">
-          <p className="eyebrow">FEATURED COLLECTION</p>
-          <h2>THE FIRST DROP</h2>
-          <p>Limited pieces. Timeless designs. Be part of the beginning.</p>
-          <Link className="button button-dark" href="/shop">SHOP NOW <ArrowRight size={16}/></Link>
-        </div>
-        <div className="product-strip">
-          {products.slice(0, 4).map((product) => (
-            <Link href={`/shop/${product.slug}`} className="mini-product" key={product.slug}>
-              <div className="mini-image"><Image src={product.image} alt={product.name} fill sizes="22vw" /></div>
-              <div className="mini-info"><span>{product.name}</span><b>GHS {product.price}</b><i>+</i></div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="social-strip">
-        <div className="social-head"><span>@overseas.gh</span><Link href="#">FOLLOW US ON INSTAGRAM →</Link></div>
-        <div className="social-images">
-          {[heroImage, storyImage, products[1].image, products[2].image, products[3].image].map((image, i) => (
-            <div key={i}><Image src={image} alt="" fill sizes="20vw" /></div>
-          ))}
-        </div>
-      </section>
-
-      <footer className="footer">
-        <div className="footer-brand"><div className="logo-mark">O</div><b>OVERSEAS</b><span>ABROKYIRE ABA GHANA</span></div>
-        <div><b>QUICK LINKS</b><Link href="/">Home</Link><Link href="/shop">Shop</Link><Link href="/our-story">Our Story</Link><Link href="/lookbook">Lookbook</Link><Link href="/contact">Contact</Link></div>
-        <div><b>CUSTOMER CARE</b><Link href="#">Shipping & Delivery</Link><Link href="#">Returns & Exchanges</Link><Link href="#">FAQs</Link><Link href="#">Size Guide</Link><Link href="#">Track Order</Link></div>
-        <div><b>JOIN OUR MOVEMENT</b><span>Be the first to know about new drops, events and exclusive offers.</span><div className="subscribe"><input placeholder="Your email address" /><button>→</button></div></div>
-        <div className="footer-bottom"><span>© 2026 OVERSEAS. All rights reserved.</span><span>ABROKYIRE ABA GHANA 🇬🇭</span></div>
-      </footer>
+      <section className="category-grid">{categories.map((category)=><Link href={category.href} className="category-card" key={category.name}><Image src={category.image} alt={category.name} fill sizes="(max-width: 700px) 50vw, 20vw" /><div className="category-overlay"><strong>{category.name}</strong><span>VIEW COLLECTION <ArrowRight size={13}/></span></div></Link>)}</section>
+      <section className="story-section"><div className="story-image"><Image src={storyImage} alt="The Foreign Boys Clan community" fill sizes="50vw" /></div><div className="story-copy"><p className="eyebrow">OUR STORY</p><h2>MORE THAN A BRAND.<br />IT&apos;S A MOVEMENT.</h2><p>OVERSEAS was born from a vision — to create a space where Ghanaian identity meets global culture. We represent the dreamers, the hustlers, the creatives, and the real ones.</p><p className="muted">The Foreign Boys Clan isn&apos;t just a name, it&apos;s a family. A community of young Black people building a better tomorrow, together.</p><Link className="button button-outline" href="/our-story">LEARN MORE <ArrowRight size={16}/></Link></div><div className="story-values"><div><span>◎</span><div><b>OUR VISION</b><small>Global influence.<br/>Ghanaian identity.<br/>Lasting impact.</small></div></div><div><span>◉</span><div><b>OUR MISSION</b><small>To create premium streetwear that tells our story and connects our people.</small></div></div><div><span>✦</span><div><b>OUR COMMUNITY</b><small>The Foreign Boys Clan.<br/>One People. One Vision.</small></div></div></div></section>
+      <section className="featured"><div className="featured-intro"><p className="eyebrow">FEATURED COLLECTION</p><h2>THE FIRST DROP</h2><p>Limited pieces. Timeless designs. Be part of the beginning.</p><Link className="button button-dark" href="/shop">SHOP NOW <ArrowRight size={16}/></Link></div><div className="product-strip">{products.slice(0,4).map(product=><Link href={`/shop/${product.slug}`} className="mini-product" key={product.slug}><div className="mini-image"><Image src={product.image} alt={product.name} fill sizes="22vw" /></div><div className="mini-info"><span>{product.name}</span><b>GHS {product.price}</b><i>+</i></div></Link>)}</div></section>
+      <section className="social-strip"><div className="social-head"><span>@overseas.gh</span><Link href="#">FOLLOW US ON INSTAGRAM →</Link></div><div className="social-images">{[heroImage,storyImage,products[1]?.image,products[2]?.image,products[3]?.image].filter(Boolean).map((image,i)=><div key={i}><Image src={image as string} alt="" fill sizes="20vw" /></div>)}</div></section>
+      <footer className="footer"><div className="footer-brand"><div className="logo-mark">O</div><b>OVERSEAS</b><span>ABROKYIRE ABA GHANA</span></div><div><b>QUICK LINKS</b><Link href="/">Home</Link><Link href="/shop">Shop</Link><Link href="/our-story">Our Story</Link><Link href="/lookbook">Lookbook</Link><Link href="/contact">Contact</Link></div><div><b>CUSTOMER CARE</b><Link href="#">Shipping & Delivery</Link><Link href="#">Returns & Exchanges</Link><Link href="#">FAQs</Link><Link href="#">Size Guide</Link><Link href="#">Track Order</Link></div><div><b>JOIN OUR MOVEMENT</b><span>Be the first to know about new drops, events and exclusive offers.</span><div className="subscribe"><input placeholder="Your email address" /><button>→</button></div></div><div className="footer-bottom"><span>© 2026 OVERSEAS. All rights reserved.</span><span>ABROKYIRE ABA GHANA 🇬🇭</span></div></footer>
     </main>
   );
 }
