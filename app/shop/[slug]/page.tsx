@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { products } from "@/lib/store";
-import { AddToCart } from "@/components/add-to-cart";
+import { ProductPurchase } from "@/components/product-purchase";
 
-export function generateStaticParams() { return products.map((p) => ({ slug: p.slug })); }
+export function generateStaticParams() {
+  return products.map((p) => ({ slug: p.slug }));
+}
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -22,10 +24,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <h1>{product.name}</h1>
           <div className="detail-price">GHS {product.price}</div>
           <p>{product.description}</p>
-          <div className="size-label">SELECT SIZE</div>
-          <div className="sizes">{product.sizes.map((size) => <button key={size}>{size}</button>)}</div>
-          <AddToCart productName={product.name} />
-          <div className="detail-notes"><span>+</span> Premium cotton construction</div><div className="detail-notes"><span>+</span> Designed in Ghana</div><div className="detail-notes"><span>+</span> Nationwide & international delivery</div>
+          <ProductPurchase
+            slug={product.slug}
+            name={product.name}
+            price={product.price}
+            image={product.image}
+            sizes={product.sizes}
+          />
+          <div className="detail-notes"><span>+</span> Premium cotton construction</div>
+          <div className="detail-notes"><span>+</span> Designed in Ghana</div>
+          <div className="detail-notes"><span>+</span> Nationwide & international delivery</div>
         </div>
       </div>
     </main>
