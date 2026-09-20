@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { products } from "@/lib/store";
+import { getProducts } from "@/lib/store";
 
-export default function ShopPage() {
+export default async function ShopPage() {
+  const products = await getProducts();
   return (
     <main className="page-shell">
       <section className="page-heading"><p className="eyebrow">THE COLLECTION</p><h1>SHOP OVERSEAS</h1><p>Streetwear rooted in Ghana, made for everywhere.</p></section>
