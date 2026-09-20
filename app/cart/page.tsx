@@ -30,7 +30,7 @@ export default function CartPage() {
                 <div className="cart-info">
                   <div><p className="eyebrow">{item.size} / OVERSEAS</p><h2>{item.name}</h2><strong>GHS {item.price}</strong></div>
                   <div className="cart-controls">
-                    <div className="quantity"><button onClick={() => updateQuantity(item.slug, item.size, item.quantity - 1)}><Minus size={13}/></button><span>{item.quantity}</span><button onClick={() => updateQuantity(item.slug, item.size, item.quantity + 1)}><Plus size={13}/></button></div>
+                    <div className="quantity"><button aria-label="Decrease quantity" onClick={() => updateQuantity(item.slug, item.size, item.quantity - 1)}><Minus size={13}/></button><span>{item.quantity}</span><button aria-label="Increase quantity" onClick={() => updateQuantity(item.slug, item.size, item.quantity + 1)}><Plus size={13}/></button></div>
                     <button className="remove" onClick={() => removeItem(item.slug, item.size)}><Trash2 size={14}/> REMOVE</button>
                   </div>
                 </div>
@@ -41,7 +41,7 @@ export default function CartPage() {
             <p className="eyebrow">ORDER SUMMARY</p>
             <div><span>SUBTOTAL</span><b>GHS {subtotal}</b></div>
             <div><span>DELIVERY</span><span>CALCULATED AT CHECKOUT</span></div>
-            <button className="checkout-button">PROCEED TO CHECKOUT →</button>
+            <Link className="checkout-button checkout-link" href="/checkout">PROCEED TO CHECKOUT →</Link>
             <small>Secure checkout. Ghana delivery and international shipping options will be connected in the next phase.</small>
           </aside>
         </section>
